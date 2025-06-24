@@ -42,8 +42,149 @@
         <label for="calc-type-select" id="calc-type-label" style="display: none;">Pilih Yang Ingin Dihitung:</label>
         <select id="calc-type-select" style="display: none;"></select>
 
-        <!-- Form input akan dimunculkan oleh JS -->
-        <form id="input-form"></form>
+        <!-- Tempat menampilkan rumus -->
+        <div id="formula-display" style="margin: 1rem 0; font-style: italic; color: #555;">
+            <!-- Rumus untuk persegi -->
+            <div class="formula" data-shape="persegi" data-calc="Luas" style="display:none;">L = sisi × sisi</div>
+            <div class="formula" data-shape="persegi" data-calc="Keliling" style="display:none;">K = 4 × sisi</div>
+            <div class="formula" data-shape="persegi" data-calc="Sisi" style="display:none;">sisi = √L</div>
+
+            <!-- Rumus untuk persegi panjang -->
+            <div class="formula" data-shape="persegi-panjang" data-calc="Luas" style="display:none;">L = panjang × lebar</div>
+            <div class="formula" data-shape="persegi-panjang" data-calc="Keliling" style="display:none;">K = 2 × (panjang + lebar)</div>
+            <div class="formula" data-shape="persegi-panjang" data-calc="Panjang" style="display:none;">panjang = L ÷ lebar</div>
+            <div class="formula" data-shape="persegi-panjang" data-calc="Lebar" style="display:none;">lebar = L ÷ panjang</div>
+
+            <!-- Rumus untuk segitiga -->
+            <div class="formula" data-shape="segitiga" data-calc="Luas" style="display:none;">L = ½ × alas × tinggi</div>
+            <div class="formula" data-shape="segitiga" data-calc="Alas" style="display:none;">alas = (2 × L) ÷ tinggi</div>
+            <div class="formula" data-shape="segitiga" data-calc="Tinggi" style="display:none;">tinggi = (2 × L) ÷ alas</div>
+
+            <!-- Rumus untuk jajar genjang -->
+            <div class="formula" data-shape="jajar-genjang" data-calc="Luas" style="display:none;">L = alas × tinggi</div>
+            <div class="formula" data-shape="jajar-genjang" data-calc="Alas" style="display:none;">alas = L ÷ tinggi</div>
+            <div class="formula" data-shape="jajar-genjang" data-calc="Tinggi" style="display:none;">tinggi = L ÷ alas</div>
+
+            <!-- Rumus untuk belah ketupat -->
+            <div class="formula" data-shape="belah-ketupat" data-calc="Luas" style="display:none;">L = ½ × d1 × d2</div>
+            <div class="formula" data-shape="belah-ketupat" data-calc="Diagonal 1" style="display:none;">d1 = (2 × L) ÷ d2</div>
+            <div class="formula" data-shape="belah-ketupat" data-calc="Diagonal 2" style="display:none;">d2 = (2 × L) ÷ d1</div>
+
+            <!-- Rumus untuk layang-layang -->
+            <div class="formula" data-shape="layang-layang" data-calc="Luas" style="display:none;">L = ½ × d1 × d2</div>
+            <div class="formula" data-shape="layang-layang" data-calc="Diagonal 1" style="display:none;">d1 = (2 × L) ÷ d2</div>
+            <div class="formula" data-shape="layang-layang" data-calc="Diagonal 2" style="display:none;">d2 = (2 × L) ÷ d1</div>
+
+            <!-- Rumus untuk trapesium -->
+            <div class="formula" data-shape="trapesium" data-calc="Luas" style="display:none;">L = ½ × (a + b) × tinggi</div>
+            <div class="formula" data-shape="trapesium" data-calc="Sisi Atas" style="display:none;">a = ((2 × L) ÷ tinggi) - b</div>
+            <div class="formula" data-shape="trapesium" data-calc="Sisi Bawah" style="display:none;">b = ((2 × L) ÷ tinggi) - a</div>
+            <div class="formula" data-shape="trapesium" data-calc="Tinggi" style="display:none;">tinggi = (2 × L) ÷ (a + b)</div>
+
+            <!-- Rumus untuk lingkaran -->
+            <div class="formula" data-shape="lingkaran" data-calc="Luas" style="display:none;">L = π × jari²</div>
+            <div class="formula" data-shape="lingkaran" data-calc="Keliling" style="display:none;">K = 2 × π × jari</div>
+            <div class="formula" data-shape="lingkaran" data-calc="Jari-jari" style="display:none;">jari = √(L ÷ π)</div>
+
+            <!-- Rumus untuk kubus -->
+            <div class="formula" data-shape="kubus" data-calc="Volume" style="display:none;">V = sisi³</div>
+            <div class="formula" data-shape="kubus" data-calc="Luas Permukaan" style="display:none;">L = 6 × sisi²</div>
+            <div class="formula" data-shape="kubus" data-calc="Sisi" style="display:none;">sisi = ³√V</div>
+
+            <!-- Rumus untuk balok -->
+            <div class="formula" data-shape="balok" data-calc="Volume" style="display:none;">V = panjang × lebar × tinggi</div>
+            <div class="formula" data-shape="balok" data-calc="Panjang" style="display:none;">panjang = V ÷ (lebar × tinggi)</div>
+            <div class="formula" data-shape="balok" data-calc="Lebar" style="display:none;">lebar = V ÷ (panjang × tinggi)</div>
+            <div class="formula" data-shape="balok" data-calc="Tinggi" style="display:none;">tinggi = V ÷ (panjang × lebar)</div>
+
+            <!-- Rumus untuk prisma segitiga -->
+            <div class="formula" data-shape="prisma-segitiga" data-calc="Volume" style="display:none;">V = ½ × alas × tinggiSegitiga × tinggiPrisma</div>
+            <div class="formula" data-shape="prisma-segitiga" data-calc="Alas" style="display:none;">alas = (2 × V) ÷ (tinggiSegitiga × tinggiPrisma)</div>
+            <div class="formula" data-shape="prisma-segitiga" data-calc="Tinggi Segitiga" style="display:none;">tinggiSegitiga = (2 × V) ÷ (alas × tinggiPrisma)</div>
+            <div class="formula" data-shape="prisma-segitiga" data-calc="Tinggi Prisma" style="display:none;">tinggiPrisma = (2 × V) ÷ (alas × tinggiSegitiga)</div>
+
+            <!-- Rumus untuk tabung -->
+            <div class="formula" data-shape="tabung" data-calc="Volume" style="display:none;">V = π × jari² × tinggi</div>
+            <div class="formula" data-shape="tabung" data-calc="Jari-jari" style="display:none;">jari = √(V ÷ (π × tinggi))</div>
+            <div class="formula" data-shape="tabung" data-calc="Tinggi" style="display:none;">tinggi = V ÷ (π × jari²)</div>
+
+            <!-- Rumus untuk limas segitiga -->
+            <div class="formula" data-shape="limas-segitiga" data-calc="Volume" style="display:none;">V = (1/3) × alas × tinggiSegitiga × tinggiLimas</div>
+            <div class="formula" data-shape="limas-segitiga" data-calc="Alas" style="display:none;">alas = (3 × V) ÷ (tinggiSegitiga × tinggiLimas)</div>
+            <div class="formula" data-shape="limas-segitiga" data-calc="Tinggi Segitiga" style="display:none;">tinggiSegitiga = (3 × V) ÷ (alas × tinggiLimas)</div>
+            <div class="formula" data-shape="limas-segitiga" data-calc="Tinggi Limas" style="display:none;">tinggiLimas = (3 × V) ÷ (alas × tinggiSegitiga)</div>
+
+            <!-- Rumus untuk limas segiempat -->
+            <div class="formula" data-shape="limas-segiempat" data-calc="Volume" style="display:none;">V = (1/3) × sisi² × tinggi</div>
+            <div class="formula" data-shape="limas-segiempat" data-calc="Sisi" style="display:none;">sisi = √((3 × V) ÷ tinggi)</div>
+            <div class="formula" data-shape="limas-segiempat" data-calc="Tinggi" style="display:none;">tinggi = (3 × V) ÷ sisi²</div>
+
+            <!-- Rumus untuk kerucut -->
+            <div class="formula" data-shape="kerucut" data-calc="Volume" style="display:none;">V = (1/3) × π × jari² × tinggi</div>
+            <div class="formula" data-shape="kerucut" data-calc="Jari-jari" style="display:none;">jari = √((3 × V) ÷ (π × tinggi))</div>
+            <div class="formula" data-shape="kerucut" data-calc="Tinggi" style="display:none;">tinggi = (3 × V) ÷ (π × jari²)</div>
+
+            <!-- Rumus untuk bola -->
+            <div class="formula" data-shape="bola" data-calc="Volume" style="display:none;">V = (4/3) × π × jari³</div>
+            <div class="formula" data-shape="bola" data-calc="Jari-jari" style="display:none;">jari = ³√((3 × V) ÷ (4 × π))</div>
+        </div>
+
+        <!-- Form input statis untuk semua kemungkinan input -->
+        <form id="input-form">
+            <!-- Input untuk persegi -->
+            <label for="sisi" class="input-label" style="display:none;">Sisi</label>
+            <input type="number" id="sisi" class="input-field" style="display:none;" required />
+
+            <label for="luas" class="input-label" style="display:none;">Luas</label>
+            <input type="number" id="luas" class="input-field" style="display:none;" required />
+
+            <!-- Input untuk persegi panjang -->
+            <label for="panjang" class="input-label" style="display:none;">Panjang</label>
+            <input type="number" id="panjang" class="input-field" style="display:none;" required />
+
+            <label for="lebar" class="input-label" style="display:none;">Lebar</label>
+            <input type="number" id="lebar" class="input-field" style="display:none;" required />
+
+            <!-- Input untuk segitiga dan jajar genjang -->
+            <label for="alas" class="input-label" style="display:none;">Alas</label>
+            <input type="number" id="alas" class="input-field" style="display:none;" required />
+
+            <label for="tinggi" class="input-label" style="display:none;">Tinggi</label>
+            <input type="number" id="tinggi" class="input-field" style="display:none;" required />
+
+            <!-- Input untuk belah ketupat dan layang-layang -->
+            <label for="d1" class="input-label" style="display:none;">Diagonal 1</label>
+            <input type="number" id="d1" class="input-field" style="display:none;" required />
+
+            <label for="d2" class="input-label" style="display:none;">Diagonal 2</label>
+            <input type="number" id="d2" class="input-field" style="display:none;" required />
+
+            <!-- Input untuk trapesium -->
+            <label for="a" class="input-label" style="display:none;">Sisi Atas</label>
+            <input type="number" id="a" class="input-field" style="display:none;" required />
+
+            <label for="b" class="input-label" style="display:none;">Sisi Bawah</label>
+            <input type="number" id="b" class="input-field" style="display:none;" required />
+
+            <!-- Input untuk lingkaran -->
+            <label for="jari" class="input-label" style="display:none;">Jari-jari</label>
+            <input type="number" id="jari" class="input-field" style="display:none;" required />
+
+            <!-- Input untuk kubus -->
+            <label for="volume" class="input-label" style="display:none;">Volume</label>
+            <input type="number" id="volume" class="input-field" style="display:none;" required />
+
+            <!-- Input untuk balok -->
+            <label for="tinggiPrisma" class="input-label" style="display:none;">Tinggi Prisma</label>
+            <input type="number" id="tinggiPrisma" class="input-field" style="display:none;" required />
+
+            <label for="tinggiLimas" class="input-label" style="display:none;">Tinggi Limas</label>
+            <input type="number" id="tinggiLimas" class="input-field" style="display:none;" required />
+
+            <!-- Tombol Hitung dan Reset -->
+            <button type="button" id="calculate-button" disabled>Hitung</button>
+            <button type="reset" id="reset-button">Reset</button>
+        </form>
 
         <!-- Hasil akan ditampilkan di sini -->
         <div id="result"></div>

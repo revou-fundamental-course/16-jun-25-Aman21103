@@ -131,8 +131,18 @@ shapeSelect.addEventListener("change", () => {
     calcTypeSelect.appendChild(option);
   });
 
-  // Kosongkan form dan hasil
-  inputForm.innerHTML = "";
+  // Sembunyikan semua input dan label
+  const allInputs = inputForm.querySelectorAll(".input-field");
+  const allLabels = inputForm.querySelectorAll(".input-label");
+  allInputs.forEach(input => {
+    input.style.display = "none";
+    input.value = "";
+  });
+  allLabels.forEach(label => {
+    label.style.display = "none";
+  });
+
+  // Reset hasil
   resultDiv.innerHTML = "";
 });
 
@@ -142,11 +152,45 @@ calcTypeSelect.addEventListener("change", () => {
   const calcType = calcTypeSelect.value;
   const inputs = inputTemplates[shape][calcType];
 
-  inputForm.innerHTML = "";
-
   if (!inputs) return;
 
-  // Fungsi untuk validasi input dan ubah warna tombol
+  // Sembunyikan semua input dan label
+  const allInputs = inputForm.querySelectorAll(".input-field");
+  const allLabels = inputForm.querySelectorAll(".input-label");
+  allInputs.forEach(input => {
+    input.style.display = "none";
+    input.value = "";
+  });
+  allLabels.forEach(label => {
+    label.style.display = "none";
+  });
+
+  // Tampilkan input dan label yang diperlukan
+  inputs.forEach(id => {
+    const inputElem = document.getElementById(id);
+    const labelElem = inputForm.querySelector(`label[for="${id}"]`);
+    if (inputElem && labelElem) {
+      inputElem.style.display = "block";
+      labelElem.style.display = "block";
+    }
+  });
+
+  // Tampilkan rumus yang sesuai
+  const formulaDisplay = document.getElementById("formula-display");
+  // Sembunyikan semua rumus
+  const allFormulas = formulaDisplay.querySelectorAll(".formula");
+  allFormulas.forEach(f => f.style.display = "none");
+  // Tampilkan rumus yang sesuai
+  const formulaToShow = formulaDisplay.querySelector(`.formula[data-shape="${shape}"][data-calc="${calcType}"]`);
+  if (formulaToShow) {
+    formulaToShow.style.display = "block";
+  }
+
+  // Ambil tombol hitung dan reset
+  const button = document.getElementById("calculate-button");
+  const resetButton = document.getElementById("reset-button");
+
+  // Fungsi validasi input dan ubah warna tombol
   function validateInputs() {
     let allFilled = true;
     inputs.forEach(id => {
@@ -166,29 +210,53 @@ calcTypeSelect.addEventListener("change", () => {
     }
   }
 
-  inputs.forEach((input) => {
-    const label = document.createElement("label");
-    label.for = input;
-    label.textContent = input.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-
-    const field = document.createElement("input");
-    field.type = "number";
-    field.id = input;
-    field.required = true;
-
-    // Tambahkan event listener untuk validasi saat input berubah
-    field.addEventListener("input", validateInputs);
-
-    inputForm.appendChild(label);
-    inputForm.appendChild(field);
+  // Pasang event listener validasi pada input
+  inputs.forEach(id => {
+    const inputElem = document.getElementById(id);
+    if (inputElem) {
+      inputElem.addEventListener("input", validateInputs);
+    }
   });
 
-  const button = document.createElement("button");
-  button.type = "button";
-  button.textContent = "Hitung";
-  button.onclick = () => calculate(shape, calcType);
-  button.disabled = true; // tombol awalnya disabled
-  inputForm.appendChild(button);
+  // Reset hasil dan tombol
+  resultDiv.innerHTML = "";
+  button.disabled = true;
+  button.style.backgroundColor = "";
+  button.style.color = "";
+
+  // Pasang event onclick tombol hitung
+  button.onclick = () => {
+    // Cek input kosong sebelum kalkulasi
+    const inputs = inputTemplates[shape][calcType];
+    let hasEmptyInput = false;
+    let emptyInputId = '';
+    for (const inputId of inputs) {
+      const inputElem = document.getElementById(inputId);
+      if (!inputElem || inputElem.value.trim() === '') {
+        hasEmptyInput = true;
+        emptyInputId = inputId;
+        break;
+      }
+    }
+    if (hasEmptyInput) {
+      resultDiv.innerHTML = `Input ${emptyInputId} harus diisi!`;
+      // Jangan ubah warna tombol reset
+      resetButton.style.backgroundColor = "";
+      resetButton.style.color = "";
+    } else {
+      calculate(shape, calcType);
+      // Setelah klik hitung, ubah warna latar tombol reset menjadi merah
+      resetButton.style.backgroundColor = "red";
+      resetButton.style.color = "white"; // optional: make text white for contrast
+    }
+  };
+
+  // Tambahkan event listener untuk tombol reset agar mengembalikan warna latar ke default
+  resetButton.addEventListener("click", () => {
+    resetButton.style.backgroundColor = "";
+    resetButton.style.color = "";
+  });
+
   validateInputs(); // cek validasi awal
 });
 
@@ -197,6 +265,16 @@ function calculate(shape, calcType) {
   const val = id => parseFloat(document.getElementById(id)?.value) || 0;
   const π = Math.PI;
   let hasil = '';
+
+  // Cek input kosong dan tampilkan alert jika ada
+  const inputs = inputTemplates[shape][calcType];
+  for (const inputId of inputs) {
+    const inputElem = document.getElementById(inputId);
+    if (!inputElem || inputElem.value.trim() === '') {
+      resultDiv.innerHTML = `Input ${inputId} harus diisi!`;
+      return;
+    }
+  }
 
   try {
     switch (shape) {
