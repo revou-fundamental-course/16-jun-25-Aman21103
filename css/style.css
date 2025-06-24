@@ -28,11 +28,14 @@ h1 {
 select,
 input[type="number"] {
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     padding: 0.75rem;
     margin: 0.5rem 0 1rem;
     border: 2px solid #ccc;
     border-radius: 10px;
     font-size: 1rem;
+    display: block;
 }
 
 select:focus,

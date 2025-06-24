@@ -1,0 +1,84 @@
+/* Modal alert overlay */
+.modal-alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-alert-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Modal alert container */
+.modal-alert {
+  background-color: white;
+  border-radius: 12px;
+  padding: 50px 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  font-family: Arial, sans-serif;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+.modal-alert-overlay.show .modal-alert {
+  transform: translateY(0);
+}
+
+/* Modal alert header label */
+.modal-alert-label {
+  background-color: #fbbf24;
+  color: black;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+  width: fit-content;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Modal alert title */
+.modal-alert-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Modal alert content */
+.modal-alert-content {
+  font-weight: 400;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Modal alert close button */
+.modal-alert-close {
+  position: absolute;
+  bottom: 15px;
+  right: 1rem;
+  background-color: #fbbf24;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  padding: 0.25rem 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  line-height: 1;
+  text-align: center;
+}

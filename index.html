@@ -4,13 +4,32 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kalkulator Bangun Datar & Ruang</title>
+    <title>KATIK</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/modal-alert.css" />
 </head>
 
 <body>
     <div class="container">
         <h1>Kalkulator Bangun Datar & Ruang</h1>
+
+        <!-- Modal alert informasi -->
+        <div id="modal-alert-overlay" class="modal-alert-overlay" style="display:none;">
+          <div class="modal-alert">
+            <button class="modal-alert-close" id="modal-alert-close">Mengerti</button>
+            <div class="modal-alert-label">Informasi</div>
+            <div class="modal-alert-title">Selamat Datang di SegiHitung Hitung Luas dan Keliling Segitiga</div>
+            <div class="modal-alert-content">
+              <p><strong>Langkah-langkah :</strong></p>
+              <ol>
+                <li>Pilih jenis bangun yang ingin di hitung.</li>
+                <li>MPilih yang ingin di hitung.</li>
+                <li>MMasukkan nilai yang di ketahui.</li>
+                <li>Klik tombol hitung untuk mendapatkan hasilnya.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
 
         <!-- Dropdown 1: Pilih Bangun -->
         <label for="shape-select">Pilih Jenis Bangun:</label>
@@ -192,6 +211,7 @@
 
     <!-- Penting: script.js harus di-load setelah semua elemen di atas -->
     <script src="js/script.js"></script>
+    <script src="js/modal-alert.js"></script>
 </body>
 
 </html>
